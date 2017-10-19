@@ -4,10 +4,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class Fenster extends JFrame{
 
-    private JPanel jpSouth, jpWest, jpCenter;
+    private JPanel jpSouth, jpWest;
     private JButton jbNextPicture, jbPreviousPicture;
     private JRadioButton[] jradios;
     private ButtonGroup buttonGroup;
@@ -18,9 +20,9 @@ public class Fenster extends JFrame{
 
 
     public Fenster() {
-        super("Bilder");
+        super("Bildbetrachter");
         index = 0;
-        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         this.initialComponents();
         this.initEvents();
         this.setSize(400, 400);
@@ -59,17 +61,16 @@ public class Fenster extends JFrame{
 
 
         //Bilder Center
-        jpCenter = new JPanel();
+
         icon = new ImageIcon[4];
-        for (int i = 0; i < 4; i++) {
-            //icon[i] = new ImageIcon("D:\\Kopp\\_Privat\\Programmieren\\IdeaProjects\\20171012_Bildbetrachter\\src\\com\\sabel\\bilder\\Bild" + (i+1) +".jpg");
-            icon[i] = new ImageIcon("C:\\Users\\micha\\IdeaProjects\\20171012_Bildbetrachter\\src\\com\\sabel\\bilder\\Bild" + (i+1) +".jpg");
+        for (int i = 0; i < icon.length; i++) {
+            icon[i] = new ImageIcon("D:\\Kopp\\_Privat\\Programmieren\\IdeaProjects\\20171012_Bildbetrachter\\src\\com\\sabel\\bilder\\Bild" + (i+1) +".jpg");
+            //icon[i] = new ImageIcon("C:\\Users\\micha\\IdeaProjects\\20171012_Bildbetrachter\\src\\com\\sabel\\bilder\\Bild" + (i+1) +".jpg");
 
 
         }
         jLabel = new JLabel(icon[0]);
         jScrollPane = new JScrollPane(jLabel);
-
 
 
         this.add(jpSouth, BorderLayout.SOUTH);
@@ -79,7 +80,7 @@ public class Fenster extends JFrame{
     }
 
     private void initEvents() {
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < jradios.length; i++) {
             int finalI = i;
             jradios[i].addMouseListener(new MouseAdapter() {
                 @Override
@@ -126,17 +127,16 @@ public class Fenster extends JFrame{
             }
         });
 
-
-        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        this.addWindowListener(new java.awt.event.WindowAdapter() {
+        this.addWindowListener(new WindowAdapter() {
             @Override
-            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
-                if (JOptionPane.showConfirmDialog(null,
-                        "Are you sure to close this window?", "Really Closing?",
-                        JOptionPane.YES_NO_OPTION,
-                        JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
-                    System.exit(0);
+            public void windowClosing(WindowEvent e) {
+                int result = JOptionPane.showConfirmDialog(Fenster.this,
+                        "Wollen Sie das Programm wirklich beenden?",
+                        "Programm beenden",JOptionPane.YES_NO_OPTION);
+                if (result == JOptionPane.YES_OPTION){
+                    System.exit(NORMAL);
                 }
+
             }
         });
     }
