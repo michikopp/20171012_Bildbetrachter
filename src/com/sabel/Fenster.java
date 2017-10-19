@@ -130,9 +130,7 @@ public class Fenster extends JFrame{
         this.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                int result = JOptionPane.showConfirmDialog(Fenster.this,
-                        "Wollen Sie das Programm wirklich beenden?",
-                        "Programm beenden",JOptionPane.YES_NO_OPTION);
+                int result = JOptionPane.showConfirmDialog(Fenster.this, "Wollen Sie das Programm wirklich beenden?", "Programm beenden",JOptionPane.YES_NO_OPTION);
                 if (result == JOptionPane.YES_OPTION){
                     System.exit(NORMAL);
                 }
