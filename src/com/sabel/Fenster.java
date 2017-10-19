@@ -6,6 +6,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.net.URL;
 
 public class Fenster extends JFrame{
 
@@ -62,12 +63,11 @@ public class Fenster extends JFrame{
 
         //Bilder Center
 
+        URL url = getClass().getResource("bilder/bild1");
+
         icon = new ImageIcon[4];
         for (int i = 0; i < icon.length; i++) {
-            icon[i] = new ImageIcon("D:\\Kopp\\_Privat\\Programmieren\\IdeaProjects\\20171012_Bildbetrachter\\src\\com\\sabel\\bilder\\Bild" + (i+1) +".jpg");
-            //icon[i] = new ImageIcon("C:\\Users\\micha\\IdeaProjects\\20171012_Bildbetrachter\\src\\com\\sabel\\bilder\\Bild" + (i+1) +".jpg");
-
-
+            icon[i] = new ImageIcon(getClass().getResource("/bilder/Bild" + (i+1) + ".jpg"));
         }
         jLabel = new JLabel(icon[0]);
         jScrollPane = new JScrollPane(jLabel);
@@ -81,7 +81,7 @@ public class Fenster extends JFrame{
 
     private void initEvents() {
         for (int i = 0; i < jradios.length; i++) {
-            int finalI = i;
+            final int finalI = i;
             jradios[i].addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
